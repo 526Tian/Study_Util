@@ -11,7 +11,5 @@ import org.springframework.stereotype.Service;
 @Service
 public class OpenAiService {
 
-    public static void main(String[] args) {
-    }
 
 }

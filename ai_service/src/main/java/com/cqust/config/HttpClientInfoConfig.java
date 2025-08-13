@@ -1,9 +1,14 @@
-package com.cqust.http.config;
+package com.cqust.config;
 
-import lombok.Data;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 
-@Data
-public class HttpConfig {
+/**
+ * @author Ltian
+ * @date 2025/8/13 23:53
+ * @description:
+ */
+@ConfigurationProperties(prefix = "HttpConfig")
+public class HttpClientInfoConfig {
 
     // 连接池最大连接数
     private Integer maxConnection = 50;
