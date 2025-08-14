@@ -27,7 +27,7 @@ public class OpenAiServiceImpl implements OpenAiService {
     private ObjectMapper objectMapper;
 
     @Override
-    public String processorOpenAiInterface() throws JsonProcessingException {
+    public Mono<String> processorOpenAiInterface(){
 
         String body = "{\n" +
                 "    \"model\": \"gpt-4o-mini\",\n" +
@@ -40,15 +40,19 @@ public class OpenAiServiceImpl implements OpenAiService {
                 .contentType(MediaType.APPLICATION_JSON)
                 .bodyValue(body)
                 .retrieve()
-                .bodyToMono(String.class);
+                .bodyToMono(String.class)
+                .doOnNext(result -> {
+                    JsonNode jsonNode = null;
+                    try {
+                        jsonNode = objectMapper.readTree(result);
+                        log.info("openAi结果 {}", objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(jsonNode));
+                    } catch (JsonProcessingException e) {
+                        throw new RuntimeException(e);
+                    }
+                });
+        log.info("非阻塞流程");
 
-        String returnValue = stringMono.block();
-        log.info("openAi结果 {}", returnValue);
-
-        JsonNode jsonNode = objectMapper.readTree(returnValue);
-        log.info("openAi结果 {}", objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(jsonNode));
-
-        return returnValue;
+        return stringMono;
     }
 
 }

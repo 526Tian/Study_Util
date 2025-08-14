@@ -1,6 +1,7 @@
 package com.cqust.service;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import reactor.core.publisher.Mono;
 
 /**
  * @author Ltian
@@ -9,6 +10,6 @@ import com.fasterxml.jackson.core.JsonProcessingException;
  */
 public interface OpenAiService {
 
-    String processorOpenAiInterface() throws JsonProcessingException;
+    Mono<String> processorOpenAiInterface();
 
 }
