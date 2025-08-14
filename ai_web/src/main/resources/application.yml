@@ -1,3 +1,13 @@
 server:
-  port: 8082
-
+  port: 8080
+  
+http-config:
+  maxConnection: 100
+  pendingAcquireTimeout: 5
+  maxIdleTime: 30
+  connectTime: 5000
+  socketTime: 5
+  readTime: 5
+  writeTime: 5
+  headerMap:
+    Authorization: Bearer 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

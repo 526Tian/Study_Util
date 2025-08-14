@@ -8,6 +8,7 @@ import org.springframework.http.client.reactive.ReactorClientHttpConnector;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.netty.http.client.HttpClient;
 import reactor.netty.resources.ConnectionProvider;
+import reactor.netty.transport.ProxyProvider;
 
 import java.time.Duration;
 
@@ -28,6 +29,10 @@ public class WebClientGeneration {
 
         // httpClient 配置
         HttpClient httpClient = HttpClient.create(custom)
+                .proxy(proxy -> proxy
+                        .type(ProxyProvider.Proxy.HTTP) // 如果是 HTTP 代理
+                        .host("127.0.0.1")
+                        .port(7890))
                 .option(ChannelOption.CONNECT_TIMEOUT_MILLIS, httpConfig.getConnectTime())
                 .responseTimeout(Duration.ofSeconds(httpConfig.getSocketTime()))
                 .doOnConnected(conn -> {
@@ -35,7 +40,10 @@ public class WebClientGeneration {
                             .addHandlerLast(new WriteTimeoutHandler(httpConfig.getWriteTime()));
                 });
 
-        return WebClient.builder().clientConnector(new ReactorClientHttpConnector(httpClient)).build();
+        return WebClient.builder()
+                .clientConnector(new ReactorClientHttpConnector(httpClient))
+                .defaultHeaders(defaultHeader ->  defaultHeader.setAll(httpConfig.getHeaderMap()))
+                .build();
     }
 
 }

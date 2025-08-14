@@ -16,6 +16,7 @@
     </modules>
 
     <properties>
+        <local.version>1.0-SNAPSHOT</local.version>
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -25,6 +26,8 @@
         <lombok.version>1.18.24</lombok.version>
         <hutool.version>5.8.25</hutool.version>
         <mapstruct.version>1.5.5.Final</mapstruct.version>
+        <guava.version>33.4.8-jre</guava.version>
+        <jackson-databind.version>2.19.0</jackson-databind.version>
     </properties>
 
     <dependencyManagement>
@@ -66,6 +69,31 @@
                 <groupId>org.mapstruct</groupId>
                 <artifactId>mapstruct-processor</artifactId>
                 <version>${mapstruct.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.cqust</groupId>
+                <artifactId>ai_api</artifactId>
+                <version>${local.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.cqust</groupId>
+                <artifactId>ai_core</artifactId>
+                <version>${local.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.cqust</groupId>
+                <artifactId>ai_service</artifactId>
+                <version>${local.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.google.guava</groupId>
+                <artifactId>guava</artifactId>
+                <version>${guava.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.fasterxml.jackson.core</groupId>
+                <artifactId>jackson-databind</artifactId>
+                <version>${jackson-databind.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

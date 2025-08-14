@@ -2,6 +2,8 @@ package com.cqust.http.config;
 
 import lombok.Data;
 
+import java.util.Map;
+
 @Data
 public class HttpConfig {
 
@@ -25,5 +27,8 @@ public class HttpConfig {
 
     // 写超时 单位:秒
     private Integer writeTime = 5;
+
+    // 默认header
+    private Map<String, String> headerMap;
 
 }

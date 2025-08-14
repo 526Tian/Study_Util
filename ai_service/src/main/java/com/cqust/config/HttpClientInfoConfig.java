@@ -1,13 +1,18 @@
 package com.cqust.config;
 
+import com.google.common.collect.Maps;
+import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
+
+import java.util.Map;
 
 /**
  * @author Ltian
  * @date 2025/8/13 23:53
  * @description:
  */
-@ConfigurationProperties(prefix = "HttpConfig")
+@ConfigurationProperties(prefix = "http-config")
+@Data
 public class HttpClientInfoConfig {
 
     // 连接池最大连接数
@@ -30,5 +35,8 @@ public class HttpClientInfoConfig {
 
     // 写超时 单位:秒
     private Integer writeTime = 5;
+
+    // 默认header
+    private Map<String, String> headerMap = Maps.newHashMap();
 
 }
