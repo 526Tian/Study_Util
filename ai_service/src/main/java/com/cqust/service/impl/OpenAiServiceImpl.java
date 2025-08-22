@@ -11,6 +11,9 @@ import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
 import com.cqust.service.OpenAiService;
 
+import java.io.OutputStream;
+import java.net.Socket;
+
 /**
  * @author Ltian
  * @date 2025/8/14 11:06
@@ -25,6 +28,14 @@ public class OpenAiServiceImpl implements OpenAiService {
 
     @Resource
     private ObjectMapper objectMapper;
+
+    public static void main(String[] args) throws Exception {
+        Socket socket = new Socket("127.0.0.1", 6666);
+        OutputStream out = socket.getOutputStream();
+        out.write("hello".getBytes());
+        out.flush();
+        socket.close();
+    }
 
     @Override
     public Mono<String> processorOpenAiInterface(){
