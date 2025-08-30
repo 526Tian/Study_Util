@@ -29,6 +29,7 @@
         <guava.version>33.4.8-jre</guava.version>
         <jackson-databind.version>2.19.0</jackson-databind.version>
         <commons-lang3.version>3.18.0</commons-lang3.version>
+        <netty-all.version>4.2.4.Final</netty-all.version>
     </properties>
 
     <dependencyManagement>
@@ -100,6 +101,11 @@
                 <groupId>org.apache.commons</groupId>
                 <artifactId>commons-lang3</artifactId>
                 <version>${commons-lang3.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.netty</groupId>
+                <artifactId>netty-all</artifactId>
+                <version>${netty-all.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
