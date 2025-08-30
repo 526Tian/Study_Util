@@ -34,6 +34,11 @@ public class NettyClientHandler extends SimpleChannelInboundHandler<String> impl
     }
 
     @Override
+    public void channelInactive(ChannelHandlerContext ctx) throws Exception {
+        log.info("netty客户端channelInactive");
+    }
+
+    @Override
     public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
         log.error("netty客户端连接异常", cause);
         ctx.channel().close();

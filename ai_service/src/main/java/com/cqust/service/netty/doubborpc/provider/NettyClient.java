@@ -4,6 +4,7 @@ import com.cqust.service.netty.doubborpc.HelloService;
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelInitializer;
+import io.netty.channel.ChannelOption;
 import io.netty.channel.ChannelPipeline;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
@@ -51,6 +52,7 @@ public class NettyClient {
         try {
             Bootstrap bootstrap = new Bootstrap();
             bootstrap.group(eventExecutors)
+                    .option(ChannelOption.TCP_NODELAY, true)
                     .channel(NioSocketChannel.class)
                     .handler(new ChannelInitializer<SocketChannel>() {
                         @Override
@@ -58,17 +60,17 @@ public class NettyClient {
                             ChannelPipeline pipeline = ch.pipeline();
                             pipeline.addLast(new StringEncoder());
                             pipeline.addLast(new StringDecoder());
-                            pipeline.addLast(new NettyClientHandler());
+                            pipeline.addLast(nettyClientHandler);
                         }
                     });
             ChannelFuture sync = bootstrap.connect(new InetSocketAddress("127.0.0.1", 7000)).sync();
             log.info("netty客户端已就绪...");
-            sync.channel().close().sync();
         } catch (Exception e) {
             log.error("客户端异常", e);
-        } finally {
-            eventExecutors.shutdownGracefully();
         }
+//        finally {
+//            eventExecutors.shutdownGracefully();
+//        }
     }
 
 }
